@@ -336,7 +336,7 @@ const SITUACIONS = {
     {q:"Neu amb fang:", emoji:"❄️", a:["Accelero","Velocitat reduïda i tracció suau","Freno brusc"],ok:1},
     {q:"Tempesta de pols:", emoji:"🌪️", a:["Seguim normal","Redueixo, llums i distància","Accelero"],ok:1},
     {q:"Calçada amb oli:", emoji:"🛢️", a:["Mantinc velocitat","Extrema precaució, no freno brusc","Accelero"],ok:1},
-    {q:"Boira + pluja:", emoji:"🌧️", a:["Accelero","Redueixo, llums curtes i distància","Apago llums"],ok:1}
+    {q:"Boira + pluja:", emoji:"🌧️", a:["Accelero","Redueixo, llums curtes i distància","Apago llums"],ok:1},
     {q:"Gel a ombra de pont:", emoji:"🌉", a:["Freno fort","Conducció suau sense accelerar","Accelero"],ok:1},
     {q:"Pluja i neumàtic desgastat:", emoji:"🛞", a:["Mantinc velocitat","Redueixo velocitat, risc aquaplaning","Accelero"],ok:1},
     {q:"Vent en túnel:", emoji:"🚇", a:["Mantinc velocitat","Redueixo i alerta a corrents","Accelero"],ok:1},
