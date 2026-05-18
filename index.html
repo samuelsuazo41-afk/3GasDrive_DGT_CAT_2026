@@ -15,254 +15,322 @@
     body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif;padding-bottom:70px}
     
     /* Header degradado negro-gris como V8.0 */
-    .header{background:linear-gradient(180deg,#2a2a2a 0%,#0a0a0a 100%);padding:20px;text-align:center;border-bottom:1px solid #333}
-    h1{font-size:28px;font-weight:900;letter-spacing:2px}
-    .subtitle{font-size:12px;opacity:0.9;margin-top:4px}
-    .coins{display:inline-block;background:#FFD700;color:#000;padding:4px 12px;border-radius:20px;font-weight:900;margin-left:10px}
+    .header{background:linear-gradient(180deg,#2a2a2a 0%,#0a0a0a 100%);padding:20px;text-align:center;border-bottom:2px solid #00D9FF}
+    .header h1{font-size:24px;color:#fff;margin-bottom:5px}
+    .header p{font-size:12px;color:#aaa}
+    .coins{display:inline-block;background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;padding:5px 15px;border-radius:20px;font-weight:bold;margin-top:10px}
     
-    /* Menú inferior */
-    .tabs{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #222;display:flex;z-index:100}
-    .tab-btn{flex:1;padding:12px 4px;background:none;border:none;color:#666;font-size:11px;cursor:pointer;transition:0.2s}
-    .tab-btn.active{color:#00D9FF;background:#1a1a1a}
-    .tab-btn .emoji{font-size:20px;display:block;margin-bottom:4px}
+    /* Tabs superiores estilo V8.0 */
+    .tabs{display:flex;gap:5px;padding:10px;background:#1a1a1a;overflow-x:auto}
+    .tab-btn{flex:0 0 auto;padding:10px 20px;background:#2a2a2a;border:none;border-radius:10px;color:#aaa;font-weight:bold;cursor:pointer;white-space:nowrap}
+    .tab-btn.active{background:linear-gradient(90deg,#00D9FF,#00BFFF);color:#000}
     
-    .tab-content{display:none;padding:15px;animation:fadeIn 0.3s}
+    /* Contenido */
+    .tab-content{display:none;padding:15px}
     .tab-content.active{display:block}
-    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    
+    /* Tarjeta principal estilo V8.0 */
+    .card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin-bottom:15px}
+    .card h2{color:#00D9FF;margin-bottom:15px;font-size:18px}
+    
+    /* Stats bar */
+    .stats{display:flex;justify-content:space-around;background:#0f0f0f;padding:10px;border-radius:10px;margin-bottom:15px}
+    .stat{text-align:center}
+    .stat-value{font-size:20px;font-weight:bold;color:#00D9FF}
+    .stat-label{font-size:11px;color:#666}
+    
+    /* Barra progreso */
+    .progress-bar{background:#333;height:8px;border-radius:10px;overflow:hidden;margin:15px 0}
+    .progress-fill{height:100%;background:linear-gradient(90deg,#00D9FF,#00FF88);transition:width 0.3s}
+    
+    /* Opciones de respuesta */
+    .opcion{background:#2a2a2a;border:2px solid #333;padding:15px;margin:10px 0;border-radius:10px;cursor:pointer;transition:all 0.2s}
+    .opcion:hover{background:#333;border-color:#00D9FF}
+    .opcion.correcta{background:#1a4d1a;border-color:#2ecc71}
+    .opcion.incorrecta{background:#4d1a1a;border-color:#e74c3c}
+    .opcion.bloqueada{pointer-events:none;opacity:0.7}
+    
+    /* Botones */
+    .btn{width:100%;padding:15px;background:linear-gradient(90deg,#00D9FF,#00BFFF);border:none;border-radius:10px;color:#000;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+    .btn:disabled{background:#444;color:#666;cursor:not-allowed}
+    .btn-buy{width:100%;padding:10px;background:#FFD700;border:none;border-radius:8px;color:#000;font-weight:bold;margin-top:10px;cursor:pointer}
+    
+    /* Feedback */
+    .feedback{padding:15px;border-radius:10px;margin:10px 0;text-align:center;font-weight:bold;display:none}
+    .feedback.acierto{background:#1a4d1a;color:#2ecc71;display:block}
+    .feedback.fallo{background:#4d1a1a;color:#e74c3c;display:block}
+    
+    /* Garage y Tienda */
+    .garage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .garage-car{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
+    .garage-car.locked{opacity:0.4}
+    
+    .emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .emoji-item{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
+    .emoji-item.locked{opacity:0.4}
+    
+    /* Tips */
+    .tip-card{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-left:4px solid #00D9FF;padding:20px;border-radius:10px}
+    .tip-emoji{font-size:48px;text-align:center;margin-bottom:10px}
+    .tip-text{font-size:16px;line-height:1.6;text-align:center}
+    
+    /* Nav inferior */
+    .nav-bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:2px solid #333;display:flex;justify-content:space-around;padding:10px 0}
+    .nav-btn{background:none;border:none;color:#666;font-size:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
+    .nav-btn.active{color:#00D9FF}
+    .nav-btn-icon{font-size:24px}
     
     /* Sub-tabs */
-    .sub-tabs{display:flex;gap:8px;margin-bottom:15px;overflow-x:auto;padding-bottom:5px}
-    .sub-tab-btn{background:#222;border:1px solid #333;color:#999;padding:8px 16px;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap;transition:0.2s}
-    .sub-tab-btn.active{background:#00D9FF;color:#000;border-color:#00D9FF;font-weight:700}
-    
+    .sub-tabs{display:flex;gap:5px;margin-bottom:15px;overflow-x:auto}
+    .sub-tab-btn{flex:0 0 auto;padding:8px 15px;background:#2a2a2a;border:none;border-radius:8px;color:#aaa;font-size:13px;cursor:pointer}
+    .sub-tab-btn.active{background:#00D9FF;color:#000}
     .sub-content{display:none}
-    .sub-content.active{display:block;animation:fadeIn 0.3s}
+    .sub-content.active{display:block}
     
-    /* Tarjetas oscuras V8.0 */
-    .card{background:#1a1a1a;border:1px solid #333;border-radius:16px;padding:20px;margin-bottom:15px;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
-    .card h2{color:#00D9FF;font-size:18px;margin-bottom:12px}
-    
-    .pregunta{font-size:17px;margin:15px 0;line-height:1.4}
-    
-    /* Opciones oscuras */
-    .opcion{background:#2a2a2a;border:2px solid #333;padding:14px 50px 14px 14px;margin:10px 0;border-radius:12px;cursor:pointer;transition:0.2s;font-size:15px;position:relative}
-    .opcion:hover{background:#333;border-color:#00D9FF}
-    .opcion.correcta{background:#0a4!important;border-color:#0f5!important;animation:pulse 0.5s}
-    .opcion.incorrecta{background:#a00!important;border-color:#f00!important;animation:shake 0.5s}
-    .opcion.bloqueada{pointer-events:none}
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-    @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
-    
-    /* Botón siguiente degradado oscuro */
-    .btn-sig{background:linear-gradient(180deg,#4a4a4a 0%,#2a2a2a 100%);color:#fff;border:none;padding:16px;width:100%;font-size:16px;font-weight:700;margin-top:12px;border-radius:12px;cursor:pointer}
-    .btn-sig:disabled{background:#333;color:#666;cursor:not-allowed}
-    .btn-sig:active{background:linear-gradient(180deg,#3a3a3a 0%,#1a1a1a 100%)}
-    
-    .stats{display:flex;justify-content:space-between;background:#0f0f0f;padding:10px;border-radius:8px;margin-bottom:12px;font-size:13px}
-    .stats span{color:#00D9FF;font-weight:700}
-    
-    .feedback{text-align:center;font-size:20px;font-weight:900;margin:15px 0;padding:12px;border-radius:10px;animation:bounceIn 0.5s}
-    .feedback.acierto{background:#0a4;color:#fff}
-    .feedback.fallo{background:#a00;color:#fff}
+    /* Animaciones */
     @keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-    
-    .garage-car{background:#1a1a1a;border:2px solid #333;border-radius:12px;padding:20px;text-align:center;margin:10px 0}
-    .garage-car.locked{opacity:0.4}
-    .garage-car h3{color:#00D9FF;margin:8px 0}
-    .garage-car .price{color:#FFD700;font-weight:900;font-size:18px}
-    
-    .btn-buy{background:#FFD700;color:#000;border:none;padding:12px 24px;border-radius:8px;font-weight:900;cursor:pointer;margin-top:10px}
-    .btn-buy:disabled{background:#333;color:#666;cursor:not-allowed}
-    
-    .tip{background:#1a1a1a;border-left:4px solid #00D9FF;padding:14px;margin:10px 0;border-radius:6px;display:flex;align-items:center}
-    .tip .tip-emoji{font-size:24px;margin-right:12px}
-    
-    .score-big{text-align:center;font-size:48px;font-weight:900;color:#00D9FF;margin:20px 0;text-shadow:0 0 20px rgba(0,217,255,0.5)}
-    
-    .emoji-shop{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .emoji-item{background:#1a1a1a;border:2px solid #333;border-radius:12px;padding:15px;text-align:center;cursor:pointer}
-    .emoji-item.locked{opacity:0.4}
-    .emoji-item .emoji-big{font-size:40px;margin:5px 0}
-    
-    .progress-bar{background:#222;height:8px;border-radius:4px;margin:8px 0;overflow:hidden}
-    .progress-fill{background:linear-gradient(90deg,#00D9FF,#0f5);height:100%;transition:width 0.3s}
-    .btn{background:#00D9FF;color:#000;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer;margin:5px}
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>🚘 GasDrive DGT V8.7</h1>
-    <div class="subtitle">380 Preguntes DGT 2026. Offline. Gratis<span class="coins" id="coins">💰 0</span></div>
-    <div id="motivacion" style="margin-top:8px;font-size:13px;color:#FFD700"></div>
+    <h1>🚗 GasDrive DGT V8.7</h1>
+    <p>380 Preguntes DGT 2026. Offline. Gratis</p>
+    <div class="coins" id="coins">💰 0</div>
   </div>
-
-  <!-- TEST -->
+  
+  <!-- TABS SUPERIORES TEST -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="cambiarSubTab('test','general')">📝 General</button>
+    <button class="tab-btn" onclick="cambiarSubTab('test','senyals')">⚠️ Senyals</button>
+    <button class="tab-btn" onclick="cambiarSubTab('test','normes')">📋 Normes</button>
+    <button class="tab-btn" onclick="cambiarSubTab('test','mecanica')">🔧 Mecànica</button>
+  </div>
+  
+  <!-- TAB TEST -->
   <div id="tab-test" class="tab-content active">
-    <div class="sub-tabs">
-      <button class="sub-tab-btn active" onclick="cambiarSubTab('test','general')">📝 General</button>
-      <button class="sub-tab-btn" onclick="cambiarSubTab('test','senyals')">🚸 Senyals</button>
-      <button class="sub-tab-btn" onclick="cambiarSubTab('test','normes')">📋 Normes</button>
-      <button class="sub-tab-btn" onclick="cambiarSubTab('test','mecanica')">🔧 Mecànica</button>
-    </div>
-    
+    <!-- GENERAL -->
     <div id="test-general" class="sub-content active">
       <div class="card">
         <h2>📝 TEST GENERAL</h2>
         <div class="stats">
-          <div>Encerts: <span id="test-general-aciertos">0</span>/10</div>
-          <div>Ratxa: <span id="test-general-racha">0</span>🔥</div>
-          <div>Puntuació: <span id="test-general-score">0</span></div>
+          <div class="stat">
+            <div class="stat-value" id="test-general-aciertos">0/10</div>
+            <div class="stat-label">Encerts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-general-racha">0🔥</div>
+            <div class="stat-label">Ratxa</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-general-score">0</div>
+            <div class="stat-label">Puntuació</div>
+          </div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-general-progress"></div></div>
-        <div class="pregunta" id="test-general-pregunta">Carregant...</div>
+        <div class="progress-bar"><div class="progress-fill" id="test-general-progress" style="width:0%"></div></div>
+        <div id="test-general-pregunta">Carregant...</div>
         <div id="test-general-opciones"></div>
-        <div class="feedback" id="test-general-feedback"></div>
-        <button class="btn-sig" id="btn-sig-test-general" onclick="siguienteTest('general')" disabled>SEGÜENT</button>
+        <div id="test-general-feedback" class="feedback"></div>
+        <button class="btn" id="btn-sig-test-general" onclick="seguentTest('general')" disabled>SEGÜENT</button>
       </div>
     </div>
-
+    
+    <!-- SENYALS -->
     <div id="test-senyals" class="sub-content">
       <div class="card">
-        <h2>🚸 SENYALS DE TRÀNSIT</h2>
+        <h2>⚠️ SENYALS DE TRÀNSIT</h2>
         <div class="stats">
-          <div>Encerts: <span id="test-senyals-aciertos">0</span>/5</div>
-          <div>Ratxa: <span id="test-senyals-racha">0</span>🔥</div>
-          <div>Puntuació: <span id="test-senyals-score">0</span></div>
+          <div class="stat">
+            <div class="stat-value" id="test-senyals-aciertos">0/5</div>
+            <div class="stat-label">Encerts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-senyals-racha">0🔥</div>
+            <div class="stat-label">Ratxa</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-senyals-score">0</div>
+            <div class="stat-label">Puntuació</div>
+          </div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-senyals-progress"></div></div>
-        <div class="pregunta" id="test-senyals-pregunta"></div>
+        <div class="progress-bar"><div class="progress-fill" id="test-senyals-progress" style="width:0%"></div></div>
+        <div id="test-senyals-pregunta">Carregant...</div>
         <div id="test-senyals-opciones"></div>
-        <div class="feedback" id="test-senyals-feedback"></div>
-        <button class="btn-sig" id="btn-sig-test-senyals" onclick="siguienteTest('senyals')" disabled>SEGÜENT</button>
+        <div id="test-senyals-feedback" class="feedback"></div>
+        <button class="btn" id="btn-sig-test-senyals" onclick="seguentTest('senyals')" disabled>SEGÜENT</button>
       </div>
     </div>
-
+    
+    <!-- NORMES -->
     <div id="test-normes" class="sub-content">
       <div class="card">
         <h2>📋 NORMES I VELOCITATS</h2>
         <div class="stats">
-          <div>Encerts: <span id="test-normes-aciertos">0</span>/5</div>
-          <div>Ratxa: <span id="test-normes-racha">0</span>🔥</div>
-          <div>Puntuació: <span id="test-normes-score">0</span></div>
+          <div class="stat">
+            <div class="stat-value" id="test-normes-aciertos">0/5</div>
+            <div class="stat-label">Encerts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-normes-racha">0🔥</div>
+            <div class="stat-label">Ratxa</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-normes-score">0</div>
+            <div class="stat-label">Puntuació</div>
+          </div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-normes-progress"></div></div>
-        <div class="pregunta" id="test-normes-pregunta"></div>
+        <div class="progress-bar"><div class="progress-fill" id="test-normes-progress" style="width:0%"></div></div>
+        <div id="test-normes-pregunta">Carregant...</div>
         <div id="test-normes-opciones"></div>
-        <div class="feedback" id="test-normes-feedback"></div>
-        <button class="btn-sig" id="btn-sig-test-normes" onclick="siguienteTest('normes')" disabled>SEGÜENT</button>
+        <div id="test-normes-feedback" class="feedback"></div>
+        <button class="btn" id="btn-sig-test-normes" onclick="seguentTest('normes')" disabled>SEGÜENT</button>
       </div>
     </div>
-
+    
+    <!-- MECANICA -->
     <div id="test-mecanica" class="sub-content">
       <div class="card">
         <h2>🔧 MECÀNICA BÀSICA</h2>
         <div class="stats">
-          <div>Encerts: <span id="test-mecanica-aciertos">0</span>/5</div>
-          <div>Ratxa: <span id="test-mecanica-racha">0</span>🔥</div>
-          <div>Puntuació: <span id="test-mecanica-score">0</span></div>
+          <div class="stat">
+            <div class="stat-value" id="test-mecanica-aciertos">0/5</div>
+            <div class="stat-label">Encerts</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-mecanica-racha">0🔥</div>
+            <div class="stat-label">Ratxa</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="test-mecanica-score">0</div>
+            <div class="stat-label">Puntuació</div>
+          </div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-mecanica-progress"></div></div>
-        <div class="pregunta" id="test-mecanica-pregunta"></div>
+        <div class="progress-bar"><div class="progress-fill" id="test-mecanica-progress" style="width:0%"></div></div>
+        <div id="test-mecanica-pregunta">Carregant...</div>
         <div id="test-mecanica-opciones"></div>
-        <div class="feedback" id="test-mecanica-feedback"></div>
-        <button class="btn-sig" id="btn-sig-test-mecanica" onclick="siguienteTest('mecanica')" disabled>SEGÜENT</button>
+        <div id="test-mecanica-feedback" class="feedback"></div>
+        <button class="btn" id="btn-sig-test-mecanica" onclick="seguentTest('mecanica')" disabled>SEGÜENT</button>
       </div>
     </div>
   </div>
-
-  <!-- SITUACIONS -->
-  <div id="tab-situacions" class="tab-content">
+  
+  <!-- TAB CASOS -->
+  <div id="tab-casos" class="tab-content">
     <div class="sub-tabs">
-      <button class="sub-tab-btn active" onclick="cambiarSubTab('sit','clima')">🚦 CASOS REALS</button>
+      <button class="sub-tab-btn active" onclick="cambiarSubTab('sit','clima')">🌦️ Clima</button>
     </div>
-
+    
     <div id="sit-clima" class="sub-content active">
       <div class="card">
-        <h2>🚦 CASOS REALS DGT</h2>
+        <h2>🌦️ CASOS REALS DGT</h2>
         <div class="stats">
-          <div>Resoltes: <span id="sit-clima-aciertos">0</span>/5</div>
-          <div>Puntuació: <span id="sit-clima-score">0</span></div>
+          <div class="stat">
+            <div class="stat-value" id="sit-clima-aciertos">0/5</div>
+            <div class="stat-label">Resoltes</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="sit-clima-score">0</div>
+            <div class="stat-label">Puntuació</div>
+          </div>
         </div>
-        <div class="progress-bar"><div class="progress-fill" id="sit-clima-progress"></div></div>
-        <div class="pregunta" id="sit-clima-pregunta"></div>
+        <div class="progress-bar"><div class="progress-fill" id="sit-clima-progress" style="width:0%"></div></div>
+        <div id="sit-clima-pregunta">Carregant...</div>
         <div id="sit-clima-opciones"></div>
-        <div class="feedback" id="sit-clima-feedback"></div>
-        <button class="btn-sig" id="btn-sig-sit-clima" onclick="siguienteSituacion('clima')" disabled>SEGÜENT</button>
+        <div id="sit-clima-feedback" class="feedback"></div>
+        <button class="btn" id="btn-sig-sit-clima" onclick="seguentSituacio('clima')" disabled>SEGÜENT</button>
       </div>
     </div>
   </div>
-
-  <!-- EXAMEN -->
+  
+  <!-- TAB EXAMEN -->
   <div id="tab-examen" class="tab-content">
     <div class="card">
       <h2>📋 EXAMEN OFICIAL 30 PREGUNTES</h2>
       <div class="stats">
-        <div>Pregunta: <span id="examen-num">0</span>/30</div>
-        <div>Encerts: <span id="examen-aciertos">0</span></div>
-        <div>Temps: <span id="examen-timer">30:00</span></div>
+        <div class="stat">
+          <div class="stat-value" id="examen-num">0/30</div>
+          <div class="stat-label">Pregunta</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="examen-aciertos">0</div>
+          <div class="stat-label">Encerts</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="examen-timer">30:00</div>
+          <div class="stat-label">Temps</div>
+        </div>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="examen-progress"></div></div>
-      <div class="pregunta" id="examen-pregunta">Prem Inicia Examen</div>
+      <div class="progress-bar"><div class="progress-fill" id="examen-progress" style="width:0%"></div></div>
+      <div id="examen-pregunta">Prem Inicia Examen</div>
       <div id="examen-opciones"></div>
-      <button class="btn-sig" id="btn-iniciar-examen" onclick="iniciarExamen()">INICIA EXAMEN</button>
-      <button class="btn-sig" id="btn-sig-examen" onclick="siguientePreguntaExamen()" style="display:none" disabled>SEGÜENT</button>
-      <div id="examen-resultado" style="display:none;text-align:center;margin-top:20px"></div>
+      <button class="btn" id="btn-iniciar-examen" onclick="iniciarExamen()">INICIA EXAMEN</button>
+      <button class="btn" id="btn-sig-examen" onclick="seguentPreguntaExamen()" disabled style="display:none">SEGÜENT</button>
+      <div id="examen-resultat" style="display:none;margin-top:20px"></div>
     </div>
   </div>
-
-  <!-- GARAGE -->
-  <div id="tab-garage" class="tab-content">
+  
+  <!-- TAB GARATGE -->
+  <div id="tab-garatge" class="tab-content">
     <div class="card">
       <h2>🏁 EL MEU GARATGE</h2>
-      <div class="score-big" id="garage-score">🏎️ 90 CV</div>
-      <div id="garage-lista"></div>
+      <div style="text-align:center;font-size:32px;margin:20px 0">
+        <span id="garage-score">🏎️ 90 CV</span>
+      </div>
+      <div id="garage-lista" class="garage-grid"></div>
     </div>
   </div>
-
-  <!-- BOTIGA -->
+  
+  <!-- TAB BOTIGA -->
   <div id="tab-botiga" class="tab-content">
     <div class="card">
       <h2>🛒 BOTIGA</h2>
-      <p style="margin-bottom:12px;font-size:13px;color:#999">Canvia els teus punts per cotxes i accessoris</p>
-      <div class="emoji-shop" id="emoji-botiga"></div>
+      <p style="color:#aaa;margin-bottom:15px">Canvia els teus punts per cotxes i accessoris</p>
+      <div id="emoji-botiga" class="emoji-grid"></div>
     </div>
   </div>
-
-  <!-- TIPS -->
+  
+  <!-- TAB TIPS -->
   <div id="tab-tips" class="tab-content">
     <div class="card">
-      <h2>💡 CONSELLS DGT</h2>
-      <div id="tip-content"></div>
-      <div style="display:flex;gap:10px;margin-top:15px">
-        <button class="btn" style="flex:1" onclick="prevTip()">ANTERIOR</button>
-        <span id="tip-counter" style="align-self:center">1/20</span>
-        <button class="btn" style="flex:1" onclick="nextTip()">SEGÜENT</button>
+      <h2>💡 TIPS DE CONDUCCIÓ</h2>
+      <div class="tip-card">
+        <div id="tip-content"></div>
       </div>
+      <div style="display:flex;gap:10px;margin-top:15px">
+        <button class="btn" style="flex:1" onclick="anteriorTip()">ANTERIOR</button>
+        <button class="btn" style="flex:1" onclick="seguentTip()">SEGÜENT</button>
+      </div>
+      <div style="text-align:center;margin-top:10px;color:#666" id="tip-counter">1/30</div>
     </div>
   </div>
-
-  <!-- MENÚ INFERIOR -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="cambiarTab('test')">
-      <span class="emoji">📝</span>TEST
+  
+  <!-- NAV INFERIOR -->
+  <div class="nav-bottom">
+    <button class="nav-btn active" onclick="cambiarTab('test')">
+      <div class="nav-btn-icon">📝</div>
+      <div>TEST</div>
     </button>
-    <button class="tab-btn" onclick="cambiarTab('situacions')">
-      <span class="emoji">🚦</span>CASOS
+    <button class="nav-btn" onclick="cambiarTab('casos')">
+      <div class="nav-btn-icon">🚦</div>
+      <div>CASOS</div>
     </button>
-    <button class="tab-btn" onclick="cambiarTab('examen')">
-      <span class="emoji">📋</span>EXAMEN
+    <button class="nav-btn" onclick="cambiarTab('examen')">
+      <div class="nav-btn-icon">📋</div>
+      <div>EXAMEN</div>
     </button>
-    <button class="tab-btn" onclick="cambiarTab('garage')">
-      <span class="emoji">🏁</span>GARATGE
+    <button class="nav-btn" onclick="cambiarTab('garatge')">
+      <div class="nav-btn-icon">🏁</div>
+      <div>GARATGE</div>
     </button>
-    <button class="tab-btn" onclick="cambiarTab('botiga')">
-      <span class="emoji">🛒</span>BOTIGA
+    <button class="nav-btn" onclick="cambiarTab('botiga')">
+      <div class="nav-btn-icon">🛒</div>
+      <div>BOTIGA</div>
     </button>
-    <button class="tab-btn" onclick="cambiarTab('tips')">
-      <span class="emoji">💡</span>TIPS
+    <button class="nav-btn" onclick="cambiarTab('tips')">
+      <div class="nav-btn-icon">💡</div>
+      <div>TIPS</div>
     </button>
   </div>
 
-<script src="./app.js?v=8.4-CAT"></script>
+<script src="./app.js"></script>
 </body>
-  </html>
+</html>
