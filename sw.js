@@ -1,5 +1,5 @@
 const CACHE_NAME = 'gasdrive-v8.4-es';
-const BASE = '/1Gasdrive_DGT_2026/';
+const BASE = '/3Gasdrive_DGT_2026/';
 
 const urlsToCache = [
   BASE,
