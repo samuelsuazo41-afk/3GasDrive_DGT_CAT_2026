@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GasDrive DGT V8.8 CAT</title>
+<title>GasDrive DGT V8.9 CAT</title>
 <base href="/3GasDrive_DGT_CAT_2026/">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
@@ -95,7 +95,7 @@ body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif;padding-bot
 </head>
 <body>
   <div class="header">
-    <h1>🚗 GasDrive DGT V8.8 CAT</h1>
+    <h1>🚗 GasDrive DGT V8.9 CAT</h1>
     <p>380 Preguntes DGT 2026. Offline. Gratis</p>
     <div class="coins" id="coins">💰 0</div>
   </div>
