@@ -208,9 +208,7 @@ const PREGUNTES = {
     {q:"Obligatori portar extintor a:", emoji:"🧯", a:["Turismes","Vehicles de transport","Motos"],ok:1},
     {q:"Límit zona 40:", emoji:"40", a:["40 km/h","50 km/h","60 km/h"],ok:0},
     {q:"Prohibit circular per carril bus:", emoji:"🚌", a:["Sí, sempre","No, només bus i taxi","Només motos"],ok:1}
-  ]
-};
-
+  ],
 mecanica: [
     {q:"Presión baja causa:", emoji:"🛞", a:["Mayor consumo","Menor adherencia","Ambas"],ok:2},
     {q:"Líquido de frenos bajo:", emoji:"🛢️", a:["Desgaste pastillas","Fuga","Ambas pueden ser"],ok:2},
@@ -338,7 +336,7 @@ const SITUACIONS = {
     {q:"Neu amb fang:", emoji:"❄️", a:["Accelero","Velocitat reduïda i tracció suau","Freno brusc"],ok:1},
     {q:"Tempesta de pols:", emoji:"🌪️", a:["Seguim normal","Redueixo, llums i distància","Accelero"],ok:1},
     {q:"Calçada amb oli:", emoji:"🛢️", a:["Mantinc velocitat","Extrema precaució, no freno brusc","Accelero"],ok:1},
-    {q:"Boira + pluja:", emoji:"🌧️", a:["Accelero","Redueixo, llums curtes i distància","Apago llums"],ok:1}llums curtes i distància","Apago llums"],ok:1},
+    {q:"Boira + pluja:", emoji:"🌧️", a:["Accelero","Redueixo, llums curtes i distància","Apago llums"],ok:1}
     {q:"Gel a ombra de pont:", emoji:"🌉", a:["Freno fort","Conducció suau sense accelerar","Accelero"],ok:1},
     {q:"Pluja i neumàtic desgastat:", emoji:"🛞", a:["Mantinc velocitat","Redueixo velocitat, risc aquaplaning","Accelero"],ok:1},
     {q:"Vent en túnel:", emoji:"🚇", a:["Mantinc velocitat","Redueixo i alerta a corrents","Accelero"],ok:1},
