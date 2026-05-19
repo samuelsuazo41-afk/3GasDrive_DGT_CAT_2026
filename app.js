@@ -564,7 +564,7 @@ function respondreTest(cat, idx, el) {
   const p = preguntes[s.idx % preguntes.length];
   if(el.classList.contains('bloqueada')) return;
 
-  document.querySelectorAll(`#test-${cat}-opciones.opcio`).forEach(o => o.classList.add('bloqueada'));
+  document.querySelectorAll(`#test-${cat}-opciones .opcio`).forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
 
   if(correcte) {
@@ -625,7 +625,7 @@ function respondreSituacio(cat, idx, el) {
   const p = casos[s.idx % casos.length];
   if(el.classList.contains('bloqueada')) return;
 
-  document.querySelectorAll(`#sit-${cat}-opciones.opcio`).forEach(o => o.classList.add('bloqueada'));
+  document.querySelectorAll(`#sit-${cat}-opciones .opcio`).forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
 
   if(correcte) {
@@ -711,7 +711,8 @@ function carregarPreguntaExamen() {
 function respondreExamen(idx, el) {
   if(el.classList.contains('bloqueada')) return;
   const p = estat.examen.preguntes[estat.examen.index];
-  document.querySelectorAll('#examen-opciones.opcio').forEach(o => o.classList.add('bloqueada'));
+
+  document.querySelectorAll('#examen-opciones .opcio').forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
   if(correcte) {
     el.classList.add('correcta');
