@@ -1,5 +1,5 @@
 // 3GASDRIVE DGT CAT 2026 - 380 PREGUNTES DGT 2026
-const VERSION = "v8.11-CAT";
+const VERSION = "v8.12-CAT";
 
 // COMBO DOPAMINA
 const EMOJIS_ACIERTO = ['🚀','💎','👑','🔥','💯','⚡','🏆','🦄','🤑','✅','💪','😎','🎯','💥','🌟','🎉'];
