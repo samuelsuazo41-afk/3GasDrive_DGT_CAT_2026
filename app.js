@@ -396,10 +396,6 @@ const ACCESORIS = [
   {id:'a4',nom:'Nitro',emoji:'💥',precio:600,hp:80}
 ];
 
-const ACCESORIS = [
-  {id:'a1',nom:'Turbo',emoji:'💨',precio:300,hp:50},
-  {id:'a2',nom:'Pneumàtics Racing',emoji:'🛞',precio:200,hp:30}
-];
 
 const EMOJI_TIENDA = [
        {id:'e1',emoji:'🦄',nom:'Unicorn',precio:1000},
