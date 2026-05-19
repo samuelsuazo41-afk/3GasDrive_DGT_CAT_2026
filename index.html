@@ -3,107 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GasDrive V8.10 CAT</title>
+  <title>GasDrive V8.11 CAT</title>
   <base href="/3GasDrive_DGT_CAT_2026/">
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="theme-color" content="#00D9FF">
+  <meta name="theme-color" content="#C8102E">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     
-    /* TEMA V8.0 OSCURO */
+    /* TEMA VERMELLÓN CATALUNYA */
     body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif;padding-bottom:70px}
     
-    /* Header degradado negro-gris como V8.0 */
-    .header{background:linear-gradient(180deg,#2a2a2a 0%,#0a0a0a 100%);padding:20px;text-align:center;border-bottom:2px solid #00D9FF}
+    .header{background:linear-gradient(180deg,#C8102E 0%,#8B0A1F 100%);padding:20px;text-align:center;border-bottom:2px solid #FFD700}
     .header h1{font-size:24px;color:#fff;margin-bottom:5px}
-    .header p{font-size:12px;color:#aaa}
+    .header p{font-size:12px;color:#ffd8dc}
     .coins{display:inline-block;background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;padding:5px 15px;border-radius:20px;font-weight:bold;margin-top:10px}
     
-    /* Tabs superiores estilo V8.0 */
     .tabs{display:flex;gap:5px;padding:10px;background:#1a1a1a;overflow-x:auto}
     .tab-btn{flex:0 0 auto;padding:10px 20px;background:#2a2a2a;border:none;border-radius:10px;color:#aaa;font-weight:bold;cursor:pointer;white-space:nowrap}
-    .tab-btn.active{background:linear-gradient(90deg,#00D9FF,#00BFFF);color:#000}
+    .tab-btn.active{background:linear-gradient(90deg,#C8102E,#A60A24);color:#fff}
     
-    /* Contenido */
     .tab-content{display:none;padding:15px}
     .tab-content.active{display:block}
     
-    /* Tarjeta principal estilo V8.0 */
     .card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin-bottom:15px}
-    .card h2{color:#00D9FF;margin-bottom:15px;font-size:18px}
+    .card h2{color:#C8102E;margin-bottom:15px;font-size:18px}
     
-    /* Stats bar */
     .stats{display:flex;justify-content:space-around;background:#0f0f0f;padding:10px;border-radius:10px;margin-bottom:15px}
     .stat{text-align:center}
-    .stat-value{font-size:20px;font-weight:bold;color:#00D9FF}
+    .stat-value{font-size:20px;font-weight:bold;color:#C8102E}
     .stat-label{font-size:11px;color:#666}
     
-    /* Barra progreso */
     .progress-bar{background:#333;height:8px;border-radius:10px;overflow:hidden;margin:15px 0}
-    .progress-fill{height:100%;background:linear-gradient(90deg,#00D9FF,#00FF88);transition:width 0.3s}
+    .progress-fill{height:100%;background:linear-gradient(90deg,#C8102E,#FFD700);transition:width 0.3s}
     
-    /* Opciones de respuesta */
-    .opcion{background:#2a2a2a;border:2px solid #333;padding:15px;margin:10px 0;border-radius:10px;cursor:pointer;transition:all 0.2s}
-    .opcion:hover{background:#333;border-color:#00D9FF}
-    .opcion.correcta{background:#1a4d1a;border-color:#2ecc71}
-    .opcion.incorrecta{background:#4d1a1a;border-color:#e74c3c}
-    .opcion.bloqueada{pointer-events:none;opacity:0.7}
+    .opcio{background:#2a2a2a;border:2px solid #333;padding:15px;margin:10px 0;border-radius:10px;cursor:pointer;transition:all 0.2s}
+    .opcio:hover{background:#333;border-color:#C8102E}
+    .opcio.correcta{background:#1a4d1a;border-color:#2ecc71}
+    .opcio.incorrecta{background:#4d1a1a;border-color:#e74c3c}
+    .opcio.bloqueada{pointer-events:none;opacity:0.7}
     
-    /* Botones */
-    .btn{width:100%;padding:15px;background:linear-gradient(90deg,#00D9FF,#00BFFF);border:none;border-radius:10px;color:#000;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+    .btn{width:100%;padding:15px;background:linear-gradient(90deg,#C8102E,#8B0A1F);border:none;border-radius:10px;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+    .btn:hover{background:linear-gradient(90deg,#A60A24,#C8102E)}
     .btn:disabled{background:#444;color:#666;cursor:not-allowed}
     .btn-buy{width:100%;padding:10px;background:#FFD700;border:none;border-radius:8px;color:#000;font-weight:bold;margin-top:10px;cursor:pointer}
     
-    /* Feedback */
     .feedback{padding:15px;border-radius:10px;margin:10px 0;text-align:center;font-weight:bold;display:none}
     .feedback.acierto{background:#1a4d1a;color:#2ecc71;display:block}
     .feedback.fallo{background:#4d1a1a;color:#e74c3c;display:block}
     
-    /* Garage y Tienda */
     .garage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
     .garage-car{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
     .garage-car.locked{opacity:0.4}
+    .garage-car[data-id="c6"]{border-color:#C8102E;box-shadow:0 0 12px rgba(200,16,46,0.4)}
     
     .emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
     .emoji-item{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
     .emoji-item.locked{opacity:0.4}
     
-    /* Tips */
-    .tip-card{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-left:4px solid #00D9FF;padding:20px;border-radius:10px}
+    .tip-card{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-left:4px solid #C8102E;padding:20px;border-radius:10px}
     .tip-emoji{font-size:48px;text-align:center;margin-bottom:10px}
     .tip-text{font-size:16px;line-height:1.6;text-align:center}
     
-    /* Nav inferior */
-    .nav-bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:2px solid #333;display:flex;justify-content:space-around;padding:10px 0}
+    .nav-bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:2px solid #C8102E;display:flex;justify-content:space-around;padding:10px 0}
     .nav-btn{background:none;border:none;color:#666;font-size:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
-    .nav-btn.active{color:#00D9FF}
+    .nav-btn.active{color:#C8102E}
     .nav-btn-icon{font-size:24px}
     
-    /* Sub-tabs */
     .sub-tabs{display:flex;gap:5px;margin-bottom:15px;overflow-x:auto}
     .sub-tab-btn{flex:0 0 auto;padding:8px 15px;background:#2a2a2a;border:none;border-radius:8px;color:#aaa;font-size:13px;cursor:pointer}
-    .sub-tab-btn.active{background:#00D9FF;color:#000}
+    .sub-tab-btn.active{background:#C8102E;color:#fff}
     .sub-content{display:none}
     .sub-content.active{display:block}
     
-    /* Animaciones */
     @keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>🚗 GasDrive DGT V8.10</h1>
+    <h1>🚗 GasDrive DGT V8.11 CAT</h1>
     <p>380 Preguntes DGT 2026. Offline. Gratis</p>
     <div class="coins" id="coins">💰 0</div>
   </div>
   
   <!-- TABS SUPERIORES TEST -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="cambiarSubTab('test','general')">📝 General</button>
-    <button class="tab-btn" onclick="cambiarSubTab('test','senyals')">⚠️ Senyals</button>
-    <button class="tab-btn" onclick="cambiarSubTab('test','normes')">📋 Normes</button>
-    <button class="tab-btn" onclick="cambiarSubTab('test','mecanica')">🔧 Mecànica</button>
+    <button class="tab-btn active" onclick="canviarSubTab('test','general', this)">📝 General</button>
+    <button class="tab-btn" onclick="canviarSubTab('test','senyals', this)">⚠️ Senyals</button>
+    <button class="tab-btn" onclick="canviarSubTab('test','normes', this)">📋 Normes</button>
+    <button class="tab-btn" onclick="canviarSubTab('test','mecanica', this)">🔧 Mecànica</button>
   </div>
   
   <!-- TAB TEST -->
@@ -216,7 +204,7 @@
   <!-- TAB CASOS -->
   <div id="tab-casos" class="tab-content">
     <div class="sub-tabs">
-      <button class="sub-tab-btn active" onclick="cambiarSubTab('sit','clima')">🌦️ Clima</button>
+      <button class="sub-tab-btn active" onclick="canviarSubTab('sit','clima', this)">🌦️ Clima</button>
     </div>
     
     <div id="sit-clima" class="sub-content active">
@@ -305,27 +293,27 @@
   
   <!-- NAV INFERIOR -->
   <div class="nav-bottom">
-    <button class="nav-btn active" onclick="cambiarTab('test')">
+    <button class="nav-btn active" onclick="canviarTab('test', this)">
       <div class="nav-btn-icon">📝</div>
       <div>TEST</div>
     </button>
-    <button class="nav-btn" onclick="cambiarTab('casos')">
+    <button class="nav-btn" onclick="canviarTab('casos', this)">
       <div class="nav-btn-icon">🚦</div>
       <div>CASOS</div>
     </button>
-    <button class="nav-btn" onclick="cambiarTab('examen')">
+    <button class="nav-btn" onclick="canviarTab('examen', this)">
       <div class="nav-btn-icon">📋</div>
       <div>EXAMEN</div>
     </button>
-    <button class="nav-btn" onclick="cambiarTab('garatge')">
+    <button class="nav-btn" onclick="canviarTab('garatge', this)">
       <div class="nav-btn-icon">🏁</div>
       <div>GARATGE</div>
     </button>
-    <button class="nav-btn" onclick="cambiarTab('botiga')">
+    <button class="nav-btn" onclick="canviarTab('botiga', this)">
       <div class="nav-btn-icon">🛒</div>
       <div>BOTIGA</div>
     </button>
-    <button class="nav-btn" onclick="cambiarTab('tips')">
+    <button class="nav-btn" onclick="canviarTab('tips', this)">
       <div class="nav-btn-icon">💡</div>
       <div>TIPS</div>
     </button>
