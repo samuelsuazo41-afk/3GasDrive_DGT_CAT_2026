@@ -1,338 +1,70 @@
-<!DOCTYPE html>
-<html lang="ca">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GasDrive DGT V8.10 CAT</title>
-<base href="/3GasDrive_DGT_CAT_2026/">
-<link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="./icon-192.png">
-<meta name="theme-color" content="#C8102E">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+const CACHE_NAME = 'gasdrive-cat-v8.9-rosso';
+const BASE_PATH = '/3GasDrive_DGT_CAT_2026/';
 
-/* TEMA VERMELLÓN CATALUNYA */
-body{background:#0a0a0a;color:#fff;font-family:'Segoe UI',sans-serif;padding-bottom:70px}
+const FILES_TO_CACHE = [
+  BASE_PATH,
+  BASE_PATH + 'index.html',
+  BASE_PATH + 'app.js',
+  BASE_PATH + 'manifest.json',
+  BASE_PATH + 'icon-192.png',
+  BASE_PATH + 'icon-512.png'
+];
 
-/* Header vermellón */
-.header{background:linear-gradient(180deg,#C8102E 0%,#8B0A1F 100%);padding:20px;text-align:center;border-bottom:2px solid #FFD700}
-.header h1{font-size:24px;color:#fff;margin-bottom:5px}
-.header p{font-size:12px;color:#ffd8dc}
-.coins{display:inline-block;background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;padding:5px 15px;border-radius:20px;font-weight:bold;margin-top:10px}
+// Instal·la i guarda al cache
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('[SW] Cachejant arxius');
+        return cache.addAll(FILES_TO_CACHE);
+      })
+      .then(() => self.skipWaiting())
+  );
+});
 
-/* Tabs superiores */
-.tabs{display:flex;gap:5px;padding:10px;background:#1a1a1a;overflow-x:auto}
-.tab-btn{flex:0 0 auto;padding:10px 20px;background:#2a2a2a;border:none;border-radius:10px;color:#aaa;font-weight:bold;cursor:pointer;white-space:nowrap}
-.tab-btn.active{background:linear-gradient(90deg,#C8102E,#A60A24);color:#fff}
+// Activa i esborra caches velles
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (key !== CACHE_NAME) {
+          console.log('[SW] Esborrant cache vella:', key);
+          return caches.delete(key);
+        }
+      }));
+    }).then(() => self.clients.claim())
+  );
+});
 
-/* Contenido */
-.tab-content{display:none;padding:15px}
-.tab-content.active{display:block}
+// Intercepta les peticions: serveix del cache si hi ha, sino va a xarxa
+self.addEventListener('fetch', event => {
+  // Només GET
+  if (event.request.method !== 'GET') return;
 
-/* Tarjeta principal */
-.card{background:#1a1a1a;border:1px solid #333;border-radius:15px;padding:20px;margin-bottom:15px}
-.card h2{color:#C8102E;margin-bottom:15px;font-size:18px}
-
-/* Stats bar */
-.stats{display:flex;justify-content:space-around;background:#0f0f0f;padding:10px;border-radius:10px;margin-bottom:15px}
-.stat{text-align:center}
-.stat-value{font-size:20px;font-weight:bold;color:#C8102E}
-.stat-label{font-size:11px;color:#666}
-
-/* Barra progreso */
-.progress-bar{background:#333;height:8px;border-radius:10px;overflow:hidden;margin:15px 0}
-.progress-fill{height:100%;background:linear-gradient(90deg,#C8102E,#FFD700);transition:width 0.3s}
-
-/* Opciones de respuesta */
-.opcio{background:#2a2a2a;border:2px solid #333;padding:15px;margin:10px 0;border-radius:10px;cursor:pointer;transition:all 0.2s}
-.opcio:hover{background:#333;border-color:#C8102E}
-.opcio.correcta{background:#1a4d1a;border-color:#2ecc71}
-.opcio.incorrecta{background:#4d1a1a;border-color:#e74c3c}
-.opcio.bloqueada{pointer-events:none;opacity:0.7}
-
-/* Botones */
-.btn{width:100%;padding:15px;background:linear-gradient(90deg,#C8102E,#8B0A1F);border:none;border-radius:10px;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
-.btn:hover{background:linear-gradient(90deg,#A60A24,#C8102E)}
-.btn:disabled{background:#444;color:#666;cursor:not-allowed}
-.btn-buy{width:100%;padding:10px;background:#FFD700;border:none;border-radius:8px;color:#000;font-weight:bold;margin-top:10px;cursor:pointer}
-
-/* Feedback */
-.feedback{padding:15px;border-radius:10px;margin:10px 0;text-align:center;font-weight:bold;display:none}
-.feedback.acierto{background:#1a4d1a;color:#2ecc71;display:block}
-.feedback.fallo{background:#4d1a1a;color:#e74c3c;display:block}
-
-/* Garage y Tienda */
-.garage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.garage-car{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
-.garage-car.locked{opacity:0.4}
-.garage-car[data-id="c6"]{border-color:#C8102E;box-shadow:0 0 12px rgba(200,16,46,0.4)}
-
-.emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.emoji-item{background:#2a2a2a;border:2px solid #333;border-radius:10px;padding:15px;text-align:center}
-.emoji-item.locked{opacity:0.4}
-
-/* Tips */
-.tip-card{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);border-left:4px solid #C8102E;padding:20px;border-radius:10px}
-.tip-emoji{font-size:48px;text-align:center;margin-bottom:10px}
-.tip-text{font-size:16px;line-height:1.6;text-align:center}
-
-/* Nav inferior */
-.nav-bottom{position:fixed;bottom:0;left:0;right:0;background:#1a1a1a;border-top:2px solid #C8102E;display:flex;justify-content:space-around;padding:10px 0}
-.nav-btn{background:none;border:none;color:#666;font-size:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px}
-.nav-btn.active{color:#C8102E}
-.nav-btn-icon{font-size:24px}
-
-/* Sub-tabs */
-.sub-tabs{display:flex;gap:5px;margin-bottom:15px;overflow-x:auto}
-.sub-tab-btn{flex:0 0 auto;padding:8px 15px;background:#2a2a2a;border:none;border-radius:8px;color:#aaa;font-size:13px;cursor:pointer}
-.sub-tab-btn.active{background:#C8102E;color:#fff}
-.sub-content{display:none}
-.sub-content.active{display:block}
-
-/* Animaciones */
-@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-</style>
-</head>
-<body>
-  <div class="header">
-    <h1>🚗 GasDrive DGT V8.9 CAT</h1>
-    <p>380 Preguntes DGT 2026. Offline. Gratis</p>
-    <div class="coins" id="coins">💰 0</div>
-  </div>
-  
-  <!-- TABS SUPERIORES TEST -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="canviarSubTab('test','general')">📝 General</button>
-    <button class="tab-btn" onclick="canviarSubTab('test','senyals')">⚠️ Senyals</button>
-    <button class="tab-btn" onclick="canviarSubTab('test','normes')">📋 Normes</button>
-    <button class="tab-btn" onclick="canviarSubTab('test','mecanica')">🔧 Mecànica</button>
-  </div>
-  
-  <!-- TAB TEST -->
-  <div id="tab-test" class="tab-content active">
-    <!-- GENERAL -->
-    <div id="test-general" class="sub-content active">
-      <div class="card">
-        <h2>📝 TEST GENERAL</h2>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="test-general-aciertos">0/10</div>
-            <div class="stat-label">Encerts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-general-racha">0🔥</div>
-            <div class="stat-label">Ratxa</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-general-score">0</div>
-            <div class="stat-label">Puntuació</div>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-general-progress" style="width:0%"></div></div>
-        <div id="test-general-pregunta">Carregant...</div>
-        <div id="test-general-opciones"></div>
-        <div id="test-general-feedback" class="feedback"></div>
-        <button class="btn" id="btn-sig-test-general" onclick="seguentTest('general')" disabled>SEGÜENT</button>
-      </div>
-    </div>
-    
-    <!-- SENYALS -->
-    <div id="test-senyals" class="sub-content">
-      <div class="card">
-        <h2>⚠️ SENYALS DE TRÀNSIT</h2>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="test-senyals-aciertos">0/5</div>
-            <div class="stat-label">Encerts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-senyals-racha">0🔥</div>
-            <div class="stat-label">Ratxa</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-senyals-score">0</div>
-            <div class="stat-label">Puntuació</div>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-senyals-progress" style="width:0%"></div></div>
-        <div id="test-senyals-pregunta">Carregant...</div>
-        <div id="test-senyals-opciones"></div>
-        <div id="test-senyals-feedback" class="feedback"></div>
-        <button class="btn" id="btn-sig-test-senyals" onclick="seguentTest('senyals')" disabled>SEGÜENT</button>
-      </div>
-    </div>
-    
-    <!-- NORMES -->
-    <div id="test-normes" class="sub-content">
-      <div class="card">
-        <h2>📋 NORMES I VELOCITATS</h2>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="test-normes-aciertos">0/5</div>
-            <div class="stat-label">Encerts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-normes-racha">0🔥</div>
-            <div class="stat-label">Ratxa</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-normes-score">0</div>
-            <div class="stat-label">Puntuació</div>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-normes-progress" style="width:0%"></div></div>
-        <div id="test-normes-pregunta">Carregant...</div>
-        <div id="test-normes-opciones"></div>
-        <div id="test-normes-feedback" class="feedback"></div>
-        <button class="btn" id="btn-sig-test-normes" onclick="seguentTest('normes')" disabled>SEGÜENT</button>
-      </div>
-    </div>
-    
-    <!-- MECANICA -->
-    <div id="test-mecanica" class="sub-content">
-      <div class="card">
-        <h2>🔧 MECÀNICA BÀSICA</h2>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="test-mecanica-aciertos">0/5</div>
-            <div class="stat-label">Encerts</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-mecanica-racha">0🔥</div>
-            <div class="stat-label">Ratxa</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="test-mecanica-score">0</div>
-            <div class="stat-label">Puntuació</div>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="test-mecanica-progress" style="width:0%"></div></div>
-        <div id="test-mecanica-pregunta">Carregant...</div>
-        <div id="test-mecanica-opciones"></div>
-        <div id="test-mecanica-feedback" class="feedback"></div>
-        <button class="btn" id="btn-sig-test-mecanica" onclick="seguentTest('mecanica')" disabled>SEGÜENT</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- TAB CASOS -->
-  <div id="tab-casos" class="tab-content">
-    <div class="sub-tabs">
-      <button class="sub-tab-btn active" onclick="canviarSubTab('sit','clima')">🌦️ Clima</button>
-    </div>
-    
-    <div id="sit-clima" class="sub-content active">
-      <div class="card">
-        <h2>🌦️ CASOS REALS DGT</h2>
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-value" id="sit-clima-aciertos">0/5</div>
-            <div class="stat-label">Resoltes</div>
-          </div>
-          <div class="stat">
-            <div class="stat-value" id="sit-clima-score">0</div>
-            <div class="stat-label">Puntuació</div>
-          </div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="sit-clima-progress" style="width:0%"></div></div>
-        <div id="sit-clima-pregunta">Carregant...</div>
-        <div id="sit-clima-opciones"></div>
-        <div id="sit-clima-feedback" class="feedback"></div>
-        <button class="btn" id="btn-sig-sit-clima" onclick="seguentSituacio('clima')" disabled>SEGÜENT</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- TAB EXAMEN -->
-  <div id="tab-examen" class="tab-content">
-    <div class="card">
-      <h2>📋 EXAMEN OFICIAL 30 PREGUNTES</h2>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-value" id="examen-num">0/30</div>
-          <div class="stat-label">Pregunta</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value" id="examen-aciertos">0</div>
-          <div class="stat-label">Encerts</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value" id="examen-timer">30:00</div>
-          <div class="stat-label">Temps</div>
-        </div>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="examen-progress" style="width:0%"></div></div>
-      <div id="examen-pregunta">Prem Inicia Examen</div>
-      <div id="examen-opciones"></div>
-      <button class="btn" id="btn-iniciar-examen" onclick="iniciarExamen()">INICIA EXAMEN</button>
-      <button class="btn" id="btn-sig-examen" onclick="seguentPreguntaExamen()" disabled style="display:none">SEGÜENT</button>
-      <div id="examen-resultat" style="display:none;margin-top:20px"></div>
-    </div>
-  </div>
-  
-  <!-- TAB GARATGE -->
-  <div id="tab-garatge" class="tab-content">
-    <div class="card">
-      <h2>🏁 EL MEU GARATGE</h2>
-      <div style="text-align:center;font-size:32px;margin:20px 0">
-        <span id="garage-score">🏎️ 90 CV</span>
-      </div>
-      <div id="garage-lista" class="garage-grid"></div>
-    </div>
-  </div>
-  
-  <!-- TAB BOTIGA -->
-  <div id="tab-botiga" class="tab-content">
-    <div class="card">
-      <h2>🛒 BOTIGA</h2>
-      <p style="color:#aaa;margin-bottom:15px">Canvia els teus punts per cotxes i accessoris</p>
-      <div id="emoji-botiga" class="emoji-grid"></div>
-    </div>
-  </div>
-  
-  <!-- TAB TIPS -->
-  <div id="tab-tips" class="tab-content">
-    <div class="card">
-      <h2>💡 TIPS DE CONDUCCIÓ</h2>
-      <div class="tip-card">
-        <div id="tip-content"></div>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:15px">
-        <button class="btn" style="flex:1" onclick="anteriorTip()">ANTERIOR</button>
-        <button class="btn" style="flex:1" onclick="seguentTip()">SEGÜENT</button>
-      </div>
-      <div style="text-align:center;margin-top:10px;color:#666" id="tip-counter">1/30</div>
-    </div>
-  </div>
-  
-  <!-- NAV INFERIOR -->
-  <div class="nav-bottom">
-    <button class="nav-btn active" onclick="canviarTab('test')">
-      <div class="nav-btn-icon">📝</div>
-      <div>TEST</div>
-    </button>
-    <button class="nav-btn" onclick="canviarTab('casos')">
-      <div class="nav-btn-icon">🚦</div>
-      <div>CASOS</div>
-    </button>
-    <button class="nav-btn" onclick="canviarTab('examen')">
-      <div class="nav-btn-icon">📋</div>
-      <div>EXAMEN</div>
-    </button>
-    <button class="nav-btn" onclick="canviarTab('garatge')">
-      <div class="nav-btn-icon">🏁</div>
-      <div>GARATGE</div>
-    </button>
-    <button class="nav-btn" onclick="canviarTab('botiga')">
-      <div class="nav-btn-icon">🛒</div>
-      <div>BOTIGA</div>
-    </button>
-    <button class="nav-btn" onclick="canviarTab('tips')">
-      <div class="nav-btn-icon">💡</div>
-      <div>TIPS</div>
-    </button>
-  </div>
-
-<script src="./app.js"></script>
-</body>
-</html>
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Si està al cache, el retorna
+        if (response) {
+          return response;
+        }
+        
+        // Si no, va a xarxa
+        return fetch(event.request).then(networkResponse => {
+          // Si la resposta és OK, la guarda al cache per la pròxima
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return networkResponse;
+        }).catch(() => {
+          // Si falla xarxa i no hi ha cache, mostra index.html per que no quedi en blanc
+          if (event.request.mode === 'navigate') {
+            return caches.match(BASE_PATH + 'index.html');
+          }
+        });
+      })
+  );
+});
