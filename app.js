@@ -912,4 +912,4 @@ if('serviceWorker' in navigator) {
   .then(reg => console.log('SW registrat'))
   .catch(err => console.log('SW error:', err));
   });
-}
+} 
