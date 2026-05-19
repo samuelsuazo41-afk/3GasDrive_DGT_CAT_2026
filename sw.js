@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GasDrive DGT V8.9 CAT</title>
+<title>GasDrive DGT V8.10 CAT</title>
 <base href="/3GasDrive_DGT_CAT_2026/">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
