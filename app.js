@@ -1,5 +1,5 @@
 // 3GASDRIVE DGT CAT 2026 - 380 PREGUNTES DGT 2026
-const VERSION = "v8.13-CAT";
+const VERSION = "v8.14-CAT";
 
 // COMBO DOPAMINA
 const EMOJIS_ACIERTO = ['🚀','💎','👑','🔥','💯','⚡','🏆','🦄','🤑','✅','💪','😎','🎯','💥','🌟','🎉'];
@@ -564,7 +564,7 @@ function respondreTest(cat, idx, el) {
   const p = preguntes[s.idx % preguntes.length];
   if(el.classList.contains('bloqueada')) return;
 
-  document.querySelectorAll(`#test-${cat}-opciones .opcio`).forEach(o => o.classList.add('bloqueada'));
+  document.querySelectorAll(`#test-${cat}-opciones.opcio`).forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
 
   if(correcte) {
@@ -584,7 +584,10 @@ function respondreTest(cat, idx, el) {
     mostrarEmoji(false, el);
     s.racha = 0;
   }
+
+  // MUEVE ESTA LÍNEA AQUÍ FUERA DEL IF/ELSE
   document.getElementById(`btn-sig-test-${cat}`).disabled = false;
+
   actualizarCoins();
   guardar();
 }
@@ -625,7 +628,7 @@ function respondreSituacio(cat, idx, el) {
   const p = casos[s.idx % casos.length];
   if(el.classList.contains('bloqueada')) return;
 
-  document.querySelectorAll(`#sit-${cat}-opciones .opcio`).forEach(o => o.classList.add('bloqueada'));
+  document.querySelectorAll(`#sit-${cat}-opciones.opcio`).forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
 
   if(correcte) {
@@ -643,7 +646,10 @@ function respondreSituacio(cat, idx, el) {
     document.getElementById(`sit-${cat}-feedback`).textContent = '❌ FALLO';
     mostrarEmoji(false, el);
   }
+
+  // MUEVE ESTA LÍNEA AQUÍ FUERA DEL IF/ELSE
   document.getElementById(`btn-sig-sit-${cat}`).disabled = false;
+
   actualizarCoins();
   guardar();
 }
@@ -711,9 +717,9 @@ function carregarPreguntaExamen() {
 function respondreExamen(idx, el) {
   if(el.classList.contains('bloqueada')) return;
   const p = estat.examen.preguntes[estat.examen.index];
-
-  document.querySelectorAll('#examen-opciones .opcio').forEach(o => o.classList.add('bloqueada'));
+  document.querySelectorAll('#examen-opciones.opcio').forEach(o => o.classList.add('bloqueada'));
   const correcte = idx === p.ok;
+
   if(correcte) {
     el.classList.add('correcta');
     estat.examen.aciertos++;
@@ -724,7 +730,10 @@ function respondreExamen(idx, el) {
     document.querySelectorAll('#examen-opciones.opcio')[p.ok].classList.add('correcta');
     mostrarEmoji(false, el);
   }
+
+  // MUEVE ESTA LÍNEA AQUÍ FUERA DEL IF/ELSE
   document.getElementById('btn-sig-examen').disabled = false;
+
   document.getElementById('examen-aciertos').textContent = estat.examen.aciertos;
   actualizarCoins();
   guardar();
