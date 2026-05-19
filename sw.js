@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gasdrive-cat-v8.10-rosso';
+const CACHE_NAME = 'gasdrive-cat-v8.11-rosso';
 const BASE_PATH = '/3GasDrive_DGT_CAT_2026/';
 
 const FILES_TO_CACHE = [
